@@ -1,131 +1,131 @@
-# Voting DApp - 全栈去中心化投票应用
+# Voting DApp - A Full-Stack Decentralized Application
 
-这是一个基于以太坊的、全栈的去中心化投票应用程序（DApp）。它利用 Hardhat 进行智能合约的开发和部署，React 作为前端框架，以及一个简单的 Express.js 后端服务。
+This is a full-stack decentralized voting application (DApp) built on Ethereum. It uses Hardhat for smart contract development and deployment, React as the frontend framework, and a simple Express.js server for the backend.
 
-## ✨ 主要功能
+## ✨ Features
 
-- **管理员权限**: 合约的部署者（Owner）拥有唯一权限来添加候选人。
-- **添加候选人**: 管理员可以随时向投票系统中添加新的候选人。
-- **投票**: 任何用户（地址）都可以投票，但每个地址只能投票一次。
-- **获取候选人列表**: 任何人都可以查看当前所有候选人的列表及其得票数。
-- **查看获胜者**: 任何人都可以查询当前得票数最高的获胜者。
+- **Admin Rights**: The contract deployer (Owner) has the sole permission to add candidates.
+- **Add Candidate**: The admin can add new candidates to the voting system at any time.
+- **Vote**: Any user (address) can vote, but each address can only vote once.
+- **Get Candidate List**: Anyone can view the current list of all candidates and their respective vote counts.
+- **View Winner**: Anyone can query the current winner with the highest number of votes.
 
-## 🛠️ 技术栈
+## 🛠️ Tech Stack
 
-- **智能合约**: Solidity, Hardhat, OpenZeppelin
-- **前端**: React, Vite, Ethers.js, Axios
-- **后端**: Node.js, Express.js
-- **开发环境**: Node.js, npm
+- **Smart Contract**: Solidity, Hardhat, OpenZeppelin
+- **Frontend**: React, Vite, Ethers.js, Axios
+- **Backend**: Node.js, Express.js
+- **Development Environment**: Node.js, npm
 
-## 📋 先决条件
+## 📋 Prerequisites
 
-在开始之前，请确保您已在本地安装了以下软件：
+Before you begin, please ensure you have the following software installed locally:
 
-- [Node.js](https://nodejs.org/) (v18.x 或更高版本)
-- [NPM](https://www.npmjs.com/) (通常随 Node.js 一起安装)
-- [MetaMask](https://metamask.io/) 浏览器插件
+- [Node.js](https://nodejs.org/) (v18.x or later)
+- [NPM](https://www.npmjs.com/) (usually installed with Node.js)
+- [MetaMask](https://metamask.io/) browser extension
 
-## 🚀 配置与启动
+## 🚀 Setup and Launch
 
-请按照以下步骤在本地运行此项目。
+Follow these steps to run the project locally.
 
-### 1. 克隆仓库
+### 1. Clone the Repository
 
 ```bash
 git clone <your-repository-url>
 cd voting-dapp
 ```
 
-### 2. 配置并部署智能合约 (Hardhat)
+### 2. Configure and Deploy the Smart Contract (Hardhat)
 
-首先，我们需要编译并部署 `Voting` 智能合约到本地的 Hardhat 网络。
+First, we need to compile and deploy the `Voting` smart contract to a local Hardhat network.
 
 ```bash
-# 进入 hardhat 目录
+# Navigate to the hardhat directory
 cd hardhat
 
-# 安装依赖
+# Install dependencies
 npm install
 
-# 编译智能合约
+# Compile the smart contract
 npx hardhat compile
 
-# 启动本地 Hardhat 节点
+# Start the local Hardhat node
 npx hardhat node
 ```
 
-此命令将启动一个本地以太坊节点，并为您提供约 20 个测试账户及其私钥。
+This command starts a local Ethereum node and provides about 20 test accounts with their private keys.
 
-**另外打开一个新的终端**，执行部署脚本：
+**Open a new terminal** and run the deployment script:
 
 ```bash
-# 确保仍处于 hardhat 目录下
-# 部署合约到本地网络
+# Ensure you are still in the hardhat directory
+# Deploy the contract to the local network
 npx hardhat run scripts/deploy.js --network localhost
 ```
 
-部署成功后，您将在终端看到类似以下的输出：
+After a successful deployment, you will see output similar to this in your terminal:
 
 ```
 Deploying contracts with the account: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
 Voting contract deployed to: 0x5FbDB2315678afecb367f032d93F642f64180aa3
 ```
 
-**请复制并保存部署后的合约地址 (`0x5Fb...`)**，后续步骤将会用到它。
+**Please copy and save the deployed contract address (`0x5Fb...`)**, as it will be needed in the following steps.
 
-### 3. 配置并启动后端 (Backend)
+### 3. Configure and Start the Backend
 
-后端服务用于与智能合约进行交互。
+The backend service is used to interact with the smart contract.
 
 ```bash
-# 回到项目根目录，然后进入 backend 目录
+# Go back to the project root, then enter the backend directory
 cd ../backend
 
-# 安装依赖
+# Install dependencies
 npm install
 ```
 
-在 `backend` 文件夹中，您可能需要一个配置文件或直接在 `index.js` 中配置合约地址和 ABI。
-**注意**: 为了使项目能够运行，您需要将 `hardhat/artifacts/contracts/Voting.sol/Voting.json` (合约的 ABI) 和上一步中得到的合约地址提供给后端和前端。
+In the `backend` folder, you might need a configuration file or to configure the contract address and ABI directly in `index.js`.
+**Note**: To make the project work, you need to provide the contract ABI from `hardhat/artifacts/contracts/Voting.sol/Voting.json` and the contract address from the previous step to both the backend and the frontend.
 
-启动后端服务 (假设入口文件是 `index.js`):
+Start the backend service (assuming the entry file is `index.js`):
 ```bash
 node index.js
 ```
 
-### 4. 配置并启动前端 (Frontend)
+### 4. Configure and Start the Frontend
 
-前端是用户与 DApp 交互的界面。
+The frontend is the user interface for interacting with the DApp.
 
 ```bash
-# 回到项目根目录，然后进入 frontend 目录
+# Go back to the project root, then enter the frontend directory
 cd ../frontend
 
-# 安装依赖
+# Install dependencies
 npm install
 ```
 
-在前端代码中（通常是在一个配置文件如 `src/config.js` 或直接在组件中），您需要配置：
-1.  **合约地址**: 粘贴您在第 2 步中保存的地址。
-2.  **合约 ABI**: 从 `hardhat/artifacts/contracts/Voting.sol/Voting.json` 文件中复制 ABI 内容。
+In the frontend code (usually in a config file like `src/config.js` or directly in a component), you need to configure:
+1.  **Contract Address**: Paste the address you saved in step 2.
+2.  **Contract ABI**: Copy the ABI content from the `hardhat/artifacts/contracts/Voting.sol/Voting.json` file.
 
-配置完成后，启动前端开发服务器：
+After configuration, start the frontend development server:
 
 ```bash
 npm run dev
 ```
 
-现在，您可以在浏览器中打开 Vite 提供的本地地址 (通常是 `http://localhost:5173`) 来与 DApp 进行交互。
+Now you can open the local address provided by Vite (usually `http://localhost:5173`) in your browser to interact with the DApp.
 
-**重要提示**:
-- 确保您的 MetaMask 已连接到 Hardhat 的本地网络 (通常是 `http://127.0.0.1:8545/`)。
-- 您可以通过导入 Hardhat 节点提供的私钥，在 MetaMask 中使用测试账户进行投票。
+**Important Notes**:
+- Ensure your MetaMask is connected to the Hardhat local network (usually `http://127.0.0.1:8545/`).
+- You can use the test accounts by importing the private keys provided by the Hardhat node into your MetaMask.
 
-## 📁 项目结构
+## 📁 Project Structure
 
 ```
 voting-dapp/
-├── backend/         # Express.js 后端
-├── frontend/        # React + Vite 前端
-└── hardhat/         # Solidity 智能合约和部署脚本
+├── backend/         # Express.js Backend
+├── frontend/        # React + Vite Frontend
+└── hardhat/         # Solidity Smart Contracts and Scripts
 ```
